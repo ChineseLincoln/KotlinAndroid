@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KotlinAndroid.iml" filepath="$PROJECT_DIR$/KotlinAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KtApp.iml" filepath="$PROJECT_DIR$/KtApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/configure/configure.iml" filepath="$PROJECT_DIR$/configure/configure.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />

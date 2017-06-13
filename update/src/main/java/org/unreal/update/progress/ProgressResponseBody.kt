@@ -1,12 +1,10 @@
 package org.unreal.update.progress
 
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import okio.*
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action1
-import rx.functions.Func1
 
 
 

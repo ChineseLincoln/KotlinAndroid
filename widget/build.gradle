@@ -28,6 +28,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     api rootProject.ext.dependencies["appcompat-v7"]
+    api rootProject.ext.dependencies["anko-commons"]
+    api rootProject.ext.dependencies["anko-sdk-support"]
     api rootProject.ext.dependencies["constraint-layout"]
     api rootProject.ext.dependencies["support-design"]
     api rootProject.ext.dependencies["support-vector-drawable"]

@@ -71,19 +71,16 @@ dependencies {
     api rootProject.ext.dependencies["rxkotlin"]
     api rootProject.ext.dependencies["rxjava"]
     api rootProject.ext.dependencies["rxandroid"]
-    api rootProject.ext.dependencies["anko-commons"]
+    api rootProject.ext.dependencies["rxpermission"]
     api rootProject.ext.dependencies["rxlifecycle"]
     api rootProject.ext.dependencies["rxlifecycle-component"]
-    implementation rootProject.ext.dependencies["retrofit-adapter"]
+    api rootProject.ext.dependencies["retrofit-adapter"]
     implementation rootProject.ext.dependencies["retrofit-covert"]
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["okhttp-logging"]
     implementation rootProject.ext.dependencies["okhttp-cache"]
     implementation rootProject.ext.dependencies["stetho"]
     implementation rootProject.ext.dependencies["stetho-okhttp"]
-    
-    implementation rootProject.ext.dependencies["block-canaryex"]
-    implementation rootProject.ext.dependencies["jessyan-progress"]
     
     kapt rootProject.ext.apt["dagger-compiler"]
 }

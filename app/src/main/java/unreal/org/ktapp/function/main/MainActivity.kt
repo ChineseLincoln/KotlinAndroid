@@ -9,7 +9,7 @@ import org.unreal.pay.PayFunction
 import org.unreal.update.manger.DownLoadType
 import org.unreal.update.manger.JessyanDownLoadType
 import unreal.org.ktapp.R
-import unreal.org.ktapp.function.main.component.DaggerMainComponent
+import unreal.org.ktapp.function.main.component. DaggerMainComponent
 import unreal.org.ktapp.function.main.contract.MainContract
 import unreal.org.ktapp.function.main.module.MainModule
 
