@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import unreal.org.ktapp.http.service.UserService
 
 /**
- * <b>类名称：</b> ServiceModule <br/>
+ * <b>类名称：</b> RetrofitHelper <br/>
  * <b>类描述：</b> <br/>
  * <b>创建人：</b> Lincoln <br/>
  * <b>修改人：</b> Lincoln <br/>

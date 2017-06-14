@@ -21,8 +21,8 @@ import org.jetbrains.anko.notificationManager
 import org.jetbrains.anko.progressDialog
 import org.unreal.update.R
 import org.unreal.update.converter.FileUtils
-import org.unreal.update.http.helper.module.ServiceMoudle
-import org.unreal.update.http.helper.service.UpdateService
+import org.unreal.update.http.helper.RetrofitHelper
+import org.unreal.update.http.helper.service.DownloadService
 import java.io.File
 
 /**
@@ -34,20 +34,23 @@ object DownlaodManger{
     lateinit var context : Context
     const val AUTHORITY_UPDATE = "org.unreal.update"
     const val UPDATE_DIR = "/unreal/update/"
-    lateinit var TYPE : JessyanDownLoadType
+    lateinit var TYPE : DownLoadType
     lateinit var dialog : ProgressDialog
     lateinit var notificationManager : NotificationManager
     lateinit var mNotifyBuilder : NotificationCompat.Builder
+
+    lateinit var downloadFileSavePath : String
+
     fun downloadApk(context: Activity, downloadUrl: String,
-                    fileName: String, type : JessyanDownLoadType) {
+                    fileName: String, type : DownLoadType) {
         val rxPermission = RxPermissions(context)
         rxPermission.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe{
                     if(it){
-                        if (createUpdateDirs()) {
+                        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
                             DownlaodManger.context = context
                             when(type){
-                                JessyanDownLoadType.Dialog ->{
+                                DownLoadType.Dialog ->{
                                     DownlaodManger.dialog = context.progressDialog(message = "正在下载，请稍后...",
                                             title = "${context.getString(org.unreal.core.R.string.app_name)}更新")
                                             .apply {
@@ -56,13 +59,14 @@ object DownlaodManger{
                                                 setCancelable(false)
                                             }
                                 }
-                                JessyanDownLoadType.Notification -> {
+                                DownLoadType.Notification -> {
                                     DownlaodManger.notificationManager = context.notificationManager
                                 }
                             }
 
                             DownlaodManger.TYPE = type
-                            DownlaodManger.retrofitDownload(downloadUrl, DownlaodManger.getUpdateFile(fileName))
+                            downloadFileSavePath = getDownloadFilePath(fileName)
+                            DownlaodManger.retrofitDownload(downloadUrl)
                         } else {
                             Toast.makeText(context, "没有检测到SD卡,请插入SD卡后重新更新应用!", Toast.LENGTH_LONG).show()
                         }
@@ -73,9 +77,9 @@ object DownlaodManger{
 
     }
 
-    private fun retrofitDownload(downloadUrl: String, updateFile: String) {
-        val downLoadService = ServiceMoudle.createResponseService(UpdateService::class.java)
-        downLoadService.downloadWithDynamicUrl(downloadUrl, updateFile)
+    private fun retrofitDownload(downloadUrl: String) {
+        val downLoadService = RetrofitHelper.createResponseService(DownloadService::class.java)
+        downLoadService.downloadWithDynamicUrl(downloadUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ install(context, it) },
@@ -83,8 +87,8 @@ object DownlaodManger{
         ProgressManager.getInstance().addResponseListener(downloadUrl) { info ->
             val percent = FileUtils.div((info.currentbytes.toDouble() / 1024), (info.contentLength.toDouble() / 1024), 2) * 100
             when (TYPE) {
-                JessyanDownLoadType.Dialog -> showDialog(percent.toInt())
-                JessyanDownLoadType.Notification -> showNotification(percent.toInt())
+                DownLoadType.Dialog -> showDialog(percent.toInt())
+                DownLoadType.Notification -> showNotification(percent.toInt())
             }
         }
 
@@ -122,21 +126,8 @@ object DownlaodManger{
         //显示通知
         notificationManager.notify(0, mNotifyBuilder.build())
     }
-    private fun createUpdateDirs(): Boolean {
-        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-            val dirs = File(Environment.getExternalStorageDirectory().absolutePath
-                    + File.separator
-                    + UPDATE_DIR)
-            if (!dirs.exists()) {
-                dirs.mkdirs()
-            }
-            return true
-        }
-        return false
-    }
 
-
-    private fun getUpdateFile(fileName: String): String {
+    private fun getDownloadFilePath(fileName: String): String {
         val filePath = StringBuilder(Environment.getExternalStorageDirectory().absolutePath)
         filePath.append(File.separator)
         filePath.append(UPDATE_DIR)
@@ -167,6 +158,6 @@ object DownlaodManger{
         android.os.Process.killProcess(android.os.Process.myPid())
     }
 }
-enum class JessyanDownLoadType{
+enum class DownLoadType{
     Dialog , Notification
 }

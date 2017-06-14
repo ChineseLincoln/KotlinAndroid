@@ -13,4 +13,3 @@ package org.unreal.core.configure
 val LOCAL_SERVER_URL = "http://192.168.0.139:8080/"
 val WEATHER_SERVER_URL = "http://192.168.0.139:8080/"
 val IP_LOCATION_SERVER_URL = "http://192.168.0.139:8080/"
-val DOWNLOAD_FILE_URL ="http://fir.im/"

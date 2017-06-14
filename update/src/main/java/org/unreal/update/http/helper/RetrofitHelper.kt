@@ -1,8 +1,8 @@
-package org.unreal.update.http.helper.module
+package org.unreal.update.http.helper
 
-import org.unreal.core.configure.DOWNLOAD_FILE_URL
+import me.jessyan.progressmanager.ProgressManager
+import okhttp3.OkHttpClient
 import org.unreal.update.converter.FileConverterFactory
-import org.unreal.update.http.helper.HttpClientHelper
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
@@ -12,10 +12,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
  * 2017/6/8 0008 09:38
  * 名称：
  */
-class ServiceMoudle {
+class RetrofitHelper {
     companion object{
         private val builder = Retrofit.Builder()
-                .baseUrl(DOWNLOAD_FILE_URL)
+                .baseUrl("http://www.google.com")
                 .addConverterFactory(FileConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) //添加FileConverterFactory
         /**
@@ -23,10 +23,16 @@ class ServiceMoudle {
          */
         fun <T> createResponseService(tClass: Class<T>): T {
             return builder
-                    .client(HttpClientHelper.addProgressListener())
+                    .client(addProgressListener())
                     .build()
                     .create(tClass)
         }
 
+        fun addProgressListener() : OkHttpClient =
+                ProgressManager.getInstance()
+                        .with(OkHttpClient.Builder())
+                        .build()
+
     }
+
 }
