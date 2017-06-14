@@ -64,6 +64,3 @@ ext {
             "dbflow-compiler": "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}",
     ]
 }
-
-
-

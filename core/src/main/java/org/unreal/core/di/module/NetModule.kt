@@ -8,7 +8,6 @@ import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.unreal.core.configure.DOWNLOAD_FILE_URL
 import org.unreal.core.configure.LOCAL_SERVER_URL
 import org.unreal.core.di.scope.LocalRetrofit
 import retrofit2.Retrofit
