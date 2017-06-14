@@ -34,15 +34,6 @@ interface BaseView {
 
     fun getContext(): Context
 
-    fun <T> bindObservableToLifecycle(): ObservableTransformer<T, T>
-
-    fun <T> bindSingleToLifecycle(): SingleTransformer<T, T>
-
-    fun <T> bindFlowableToLifecycle(): FlowableTransformer<T, T>
-
-    fun <T> bindMaybeToLifecycle(): MaybeTransformer<T, T>
-
-    fun bindCompletableToLifecycle(): CompletableTransformer
-
+    fun <T> bindToLifecycle(): SingleTransformer<T, T>
 
 }

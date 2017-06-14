@@ -39,10 +39,6 @@ android {
 
 
     android {
-        configurations.all {
-            resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
-        }
-
 
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES.txt'
@@ -67,37 +63,26 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile project(':configure')
-    compile project(':widget')
-    compile rootProject.ext.dependencies["dagger"]
-    compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["retrofit-adapter"]
-    compile rootProject.ext.dependencies["retrofit-covert"]
-    compile rootProject.ext.dependencies["okhttp"]
-    compile rootProject.ext.dependencies["okhttp-logging"]
-    compile rootProject.ext.dependencies["okhttp-cache"]
-    compile rootProject.ext.dependencies["stetho"]
-    compile rootProject.ext.dependencies["stetho-okhttp"]
-    compile rootProject.ext.dependencies["rxkotlin"]
-    compile rootProject.ext.dependencies["rxjava"]
-    compile rootProject.ext.dependencies["rxandroid"]
-    compile rootProject.ext.dependencies["rxlifecycle"]
-    compile rootProject.ext.dependencies["rxlifecycle-component"]
-    compile rootProject.ext.dependencies["rxpermission"]
-    compile rootProject.ext.dependencies["super-design"]
-    compile rootProject.ext.dependencies["anko-sdk"]
-    compile rootProject.ext.dependencies["anko-appcompat"]
-    compile rootProject.ext.dependencies["block-canaryex"]
-    compile rootProject.ext.dependencies["jessyan-progress"]
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':configure')
+    api project(':widget')
+    api rootProject.ext.dependencies["dagger"]
+    api rootProject.ext.dependencies["retrofit"]
+    api rootProject.ext.dependencies["rxkotlin"]
+    api rootProject.ext.dependencies["rxjava"]
+    api rootProject.ext.dependencies["rxandroid"]
+    api rootProject.ext.dependencies["rxpermission"]
+    api rootProject.ext.dependencies["rxlifecycle"]
+    api rootProject.ext.dependencies["rxlifecycle-component"]
+    api rootProject.ext.dependencies["retrofit-adapter"]
+    implementation rootProject.ext.dependencies["retrofit-covert"]
+    implementation rootProject.ext.dependencies["okhttp"]
+    implementation rootProject.ext.dependencies["okhttp-logging"]
+    implementation rootProject.ext.dependencies["okhttp-cache"]
+    implementation rootProject.ext.dependencies["stetho"]
+    implementation rootProject.ext.dependencies["stetho-okhttp"]
+    
     kapt rootProject.ext.apt["dagger-compiler"]
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlin_version}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}"
-
 }
 repositories {
     mavenCentral()

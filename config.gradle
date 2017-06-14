@@ -1,4 +1,4 @@
-def appcompat_v7_version = "25.3.1"
+def support_version = "25.3.1"
 def dagger_version = "2.11"
 def retrofit_version = "2.3.0"
 def retrofit_covert_version = "2.1.0"
@@ -8,16 +8,48 @@ def stetho_version = "1.5.0"
 def rxkotlin_version = "2.0.3"
 def rxjava_version = "2.1.0"
 def rxandroid_version = "2.0.1"
-def rxlifecycle_version = "1.0"
+def rxlifecycle_version = "2.1.0"
 def dbflow_version = "4.0.2"
 def sqlcipher_version = "3.5.4"
-def super_design_version = "25.3.1"
 def rxpermission_version = "0.9.4@aar"
-def anko_sdk_version = "0.9.1"
-def anko_appcompat_version = "0.9.1"
 def block_canaryex_version = "0.9.9.0"
 def jessyan_progress_version = "1.2.1"
+def anko_version = "0.10.1"
+def constraint_layout_version = "1.0.2"
 ext {
+    dependencies = [
+            "appcompat-v7"           : "com.android.support:appcompat-v7:${support_version}",
+            "support-design"         : "com.android.support:design:${support_version}",
+            "support-vector-drawable": "com.android.support:support-vector-drawable:${support_version}",
+            "constraint-layout"      : "com.android.support.constraint:constraint-layout:${constraint_layout_version}",
+            "dagger"                 : "com.google.dagger:dagger:${dagger_version}",
+            "retrofit"               : "com.squareup.retrofit2:retrofit:${retrofit_version}",
+            "retrofit-adapter"       : "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}",
+            "retrofit-covert"        : "org.ligboy.retrofit2:converter-fastjson-android:${retrofit_covert_version}",
+            "okhttp"                 : "com.squareup.okhttp3:okhttp:${okhttp_version}",
+            "okhttp-logging"         : "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
+            "okhttp-cache"           : "com.ncornette.cache:okcache-control:${okhttp_cache_version}",
+            "stetho"                 : "com.facebook.stetho:stetho:${stetho_version}",
+            "stetho-okhttp"          : "com.facebook.stetho:stetho-okhttp3:${stetho_version}",
+            "rxkotlin"               : "io.reactivex.rxjava2:rxkotlin:${rxkotlin_version}",
+            "rxjava"                 : "io.reactivex.rxjava2:rxjava:${rxjava_version}",
+            "rxandroid"              : "io.reactivex.rxjava2:rxandroid:${rxandroid_version}",
+            "rxlifecycle"            : "com.trello.rxlifecycle2:rxlifecycle:${rxlifecycle_version}",
+            "rxlifecycle-component"  : "com.trello.rxlifecycle2:rxlifecycle-components:${rxlifecycle_version}",
+            "dbflow-core"            : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}",
+            "dbflow"                 : "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}",
+            "dbflow-sqlcipher"       : "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}",
+            "sqlcipher"              : "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar",
+            "dbflow-kotlin"          : "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}",
+            "dbflow-rx"              : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}",
+            "dbflow-rx-kotlin"       : "com.github.Raizlabs.DBFlow:dbflow-rx2-kotlinextensions:${dbflow_version}",
+            "rxpermission"           : "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermission_version}",
+            "block-canaryex"         : "com.letv.sarrsdesktop:BlockCanaryExJRT:${block_canaryex_version}",
+            "jessyan-progress"       : "me.jessyan:progressmanager:${jessyan_progress_version}",
+            "anko-commons"           : "org.jetbrains.anko:anko-commons:${anko_version}",
+            "anko-sdk-support"       : "org.jetbrains.anko:anko-sdk25:${anko_version}",
+
+    ]
     isDebug = true
     android = [
             compileSdkVersion: 25,
@@ -26,42 +58,9 @@ ext {
             targetSdkVersion : 25
     ]
 
-    dependencies = [
-            "appcompat-v7"         : "com.android.support:appcompat-v7:${appcompat_v7_version}",
-            "super-design"         : "com.android.support:design:${super_design_version}",
-            "dagger"               : "com.google.dagger:dagger:${dagger_version}",
-            "retrofit"             : "com.squareup.retrofit2:retrofit:${retrofit_version}",
-            "retrofit-adapter"     : "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}",
-            "retrofit-covert"      : "org.ligboy.retrofit2:converter-fastjson-android:${retrofit_covert_version}",
-            "okhttp"               : "com.squareup.okhttp3:okhttp:${okhttp_version}",
-            "okhttp-logging"       : "com.squareup.okhttp3:logging-interceptor:${okhttp_version}",
-            "okhttp-cache"         : "com.ncornette.cache:okcache-control:${okhttp_cache_version}",
-            "stetho"               : "com.facebook.stetho:stetho:${stetho_version}",
-            "stetho-okhttp"        : "com.facebook.stetho:stetho-okhttp3:${stetho_version}",
-            "rxkotlin"             : "io.reactivex.rxjava2:rxkotlin:${rxkotlin_version}",
-            "rxjava"               : "io.reactivex.rxjava2:rxjava:${rxjava_version}",
-            "rxandroid"            : "io.reactivex.rxjava2:rxandroid:${rxandroid_version}",
-            "rxlifecycle"          : "com.trello:rxlifecycle-kotlin:${rxlifecycle_version}",
-            "rxlifecycle-component": "com.trello:rxlifecycle-components:${rxlifecycle_version}",
-            "dbflow-core"          : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}",
-            "dbflow"               : "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}",
-            "dbflow-sqlcipher"     : "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}",
-            "sqlcipher"            : "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar",
-            "dbflow-kotlin"        : "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}",
-            "dbflow-rx"            : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}",
-            "dbflow-rx-kotlin"     : "com.github.Raizlabs.DBFlow:dbflow-rx2-kotlinextensions:${dbflow_version}",
-            "rxpermission"         : "com.tbruyelle.rxpermissions2:rxpermissions:${rxpermission_version}",
-            "anko-sdk"             : "org.jetbrains.anko:anko-sdk15:${anko_sdk_version}",
-            "anko-appcompat"       : "org.jetbrains.anko:anko-appcompat-v7:${anko_appcompat_version}",
-            "block-canaryex"       : "com.letv.sarrsdesktop:BlockCanaryExJRT:${block_canaryex_version}",
-            "jessyan-progress"       : "me.jessyan:progressmanager:${jessyan_progress_version}",
-    ]
 
     apt = [
             "dagger-compiler": "com.google.dagger:dagger-compiler:${dagger_version}",
             "dbflow-compiler": "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}",
     ]
 }
-
-
-

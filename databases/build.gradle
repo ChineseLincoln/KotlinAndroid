@@ -35,8 +35,4 @@ dependencies {
     implementation rootProject.ext.dependencies["dbflow-sqlcipher"]
     implementation rootProject.ext.dependencies["sqlcipher"]
     kapt rootProject.ext.apt["dbflow-compiler"]
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }

@@ -12,7 +12,6 @@
       <module fileurl="file://$PROJECT_DIR$/preference/preference.iml" filepath="$PROJECT_DIR$/preference/preference.iml" />
       <module fileurl="file://$PROJECT_DIR$/update/update.iml" filepath="$PROJECT_DIR$/update/update.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />
-      <module fileurl="file://E:\KotlinAndroid\web\web.iml" filepath="E:\KotlinAndroid\web\web.iml" />
       <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
     </modules>
   </component>

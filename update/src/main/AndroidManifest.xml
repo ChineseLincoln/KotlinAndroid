@@ -8,11 +8,6 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
-        <receiver android:name="org.unreal.update.manger.DownloadManager$NotificationBroadcastReceiver">
-            <intent-filter>
-                <action android:name="cancelDownload" />
-            </intent-filter>
-        </receiver>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="org.unreal.update"

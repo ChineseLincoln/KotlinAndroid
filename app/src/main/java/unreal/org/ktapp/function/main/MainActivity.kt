@@ -6,10 +6,9 @@ import org.jetbrains.anko.toast
 import org.unreal.core.base.ToolBarActivity
 import org.unreal.core.di.component.CoreComponent
 import org.unreal.pay.PayFunction
-import org.unreal.update.manger.DownLoadType
 import org.unreal.update.manger.JessyanDownLoadType
 import unreal.org.ktapp.R
-import unreal.org.ktapp.function.main.component.DaggerMainComponent
+import unreal.org.ktapp.function.main.component. DaggerMainComponent
 import unreal.org.ktapp.function.main.contract.MainContract
 import unreal.org.ktapp.function.main.module.MainModule
 
@@ -53,16 +52,12 @@ class MainActivity : ToolBarActivity<MainContract.Presenter>() , MainContract.Vi
 //                tradeCode = "20170603"
 //                serverModel = "01"
 //            },{ toast("支付成功")} ,{ toast(it) })
-            org.unreal.update.manger.DownloadManager.downloadApk(this,
-                    "http://183.56.150.169/imtt.dd.qq.com/16891/50172C52EBCCD8F9B0AD2B576DB7BA16.apk?mkey=58fedb8402e16784&f=9602&c=0&fsname=cn.flyexp_2.0.1_6.apk&csr=1bbd&p=.apk",
-                    "xiaohui.apk"
-                    ,DownLoadType.Dialog)
         }
         button1.setOnClickListener {
-            org.unreal.update.manger.JessyanDownlaodManger.downloadApk(this,
+            org.unreal.update.manger.DownlaodManger.downloadApk(this,
                     "http://183.56.150.169/imtt.dd.qq.com/16891/50172C52EBCCD8F9B0AD2B576DB7BA16.apk?mkey=58fedb8402e16784&f=9602&c=0&fsname=cn.flyexp_2.0.1_6.apk&csr=1bbd&p=.apk",
                     "xiaohui.apk"
-                    ,JessyanDownLoadType.Notification)
+                    ,JessyanDownLoadType.Dialog)
         }
     }
 
