@@ -21,7 +21,7 @@ object FileUtils{
      */
     fun writeResponseBodyToDisk(body: ResponseBody, path: String): File? {
 
-        var saveFile: File
+        val saveFile : File
         try {
             saveFile = File(path)
             createDirs(saveFile)

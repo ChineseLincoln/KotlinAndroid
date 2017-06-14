@@ -1,10 +1,10 @@
 package org.unreal.update.converter
 
-import retrofit2.Converter
-import java.lang.reflect.Type
-import retrofit2.Retrofit
 import okhttp3.ResponseBody
+import retrofit2.Converter
+import retrofit2.Retrofit
 import java.io.File
+import java.lang.reflect.Type
 
 
 /**
@@ -18,6 +18,7 @@ class FileConverterFactory : Converter.Factory() {
             return FileConverterFactory()
         }
     }
+
     override fun responseBodyConverter(type: Type,
                                        annotations : Array<Annotation>,
                                        retrofit : Retrofit)

@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api project (':core')
     api rootProject.ext.dependencies["dbflow-rx"]
