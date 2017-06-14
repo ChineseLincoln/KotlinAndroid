@@ -125,6 +125,11 @@ def getVersionName(boolean isRelease) {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    
     implementation project(':databases')
     implementation project(':pay')
     implementation project(':web')
