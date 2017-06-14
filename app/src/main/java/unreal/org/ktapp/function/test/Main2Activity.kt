@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.activity_main2.*
 import org.jetbrains.anko.startActivity
 import org.unreal.web.WebActivity
 import unreal.org.ktapp.R
-import unreal.org.ktapp.function.main.MainActivity
 
 class Main2Activity : AppCompatActivity() {
 
@@ -17,7 +16,6 @@ class Main2Activity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.navigation_home -> {
                         message.setText(R.string.title_home)
-                        startActivity<MainActivity>()
                         return@OnNavigationItemSelectedListener true
                     }
                     R.id.navigation_dashboard -> {

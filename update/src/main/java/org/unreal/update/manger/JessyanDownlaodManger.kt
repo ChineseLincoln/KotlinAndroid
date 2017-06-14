@@ -30,7 +30,7 @@ import java.io.File
  * 2017/6/12 0012 17:09
  * 名称：
  */
-object DownlaodManger{
+object JessyanDownlaodManger{
     lateinit var context : Context
     const val AUTHORITY_UPDATE = "org.unreal.update"
     const val UPDATE_DIR = "/unreal/update/"
@@ -45,10 +45,10 @@ object DownlaodManger{
                 .subscribe{
                     if(it){
                         if (createUpdateDirs()) {
-                            DownlaodManger.context = context
+                            JessyanDownlaodManger.context = context
                             when(type){
                                 JessyanDownLoadType.Dialog ->{
-                                    DownlaodManger.dialog = context.progressDialog(message = "正在下载，请稍后...",
+                                    JessyanDownlaodManger.dialog = context.progressDialog(message = "正在下载，请稍后...",
                                             title = "${context.getString(org.unreal.core.R.string.app_name)}更新")
                                             .apply {
                                                 max = 100
@@ -57,12 +57,12 @@ object DownlaodManger{
                                             }
                                 }
                                 JessyanDownLoadType.Notification -> {
-                                    DownlaodManger.notificationManager = context.notificationManager
+                                    JessyanDownlaodManger.notificationManager = context.notificationManager
                                 }
                             }
 
-                            DownlaodManger.TYPE = type
-                            DownlaodManger.retrofitDownload(downloadUrl, DownlaodManger.getUpdateFile(fileName))
+                            JessyanDownlaodManger.TYPE = type
+                            JessyanDownlaodManger.retrofitDownload(downloadUrl, JessyanDownlaodManger.getUpdateFile(fileName))
                         } else {
                             Toast.makeText(context, "没有检测到SD卡,请插入SD卡后重新更新应用!", Toast.LENGTH_LONG).show()
                         }

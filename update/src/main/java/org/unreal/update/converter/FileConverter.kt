@@ -2,8 +2,8 @@ package org.unreal.update.converter
 
 import android.os.Environment.getExternalStorageDirectory
 import android.text.TextUtils
-import me.jessyan.progressmanager.body.ProgressResponseBody
 import okhttp3.ResponseBody
+import org.unreal.update.progress.ProgressResponseBody
 import retrofit2.Converter
 import java.io.File
 
@@ -38,8 +38,8 @@ class FileConverter : Converter<ResponseBody, File> {
             val body = field.get(value) as ResponseBody
             if (body is ProgressResponseBody) {
                 val prBody = body
-//                saveFilePath = prBody.savePath
-//                requestFileName = prBody.fileName
+                saveFilePath = prBody.savePath
+                requestFileName = prBody.fileName
             }
 
         } catch (e: NoSuchFieldException) {
