@@ -9,8 +9,8 @@ def rxkotlin_version = "2.0.3"
 def rxjava_version = "2.1.0"
 def rxandroid_version = "2.0.1"
 def rxlifecycle_version = "2.1.0"
-def dbflow_version = "4.0.2"
-def sqlcipher_version = "3.5.4"
+def dbflow_version = "4.0.4"
+def sqlcipher_version = "3.5.6@aar"
 def rxpermission_version = "0.9.4@aar"
 def block_canaryex_version = "0.9.9.0"
 def jessyan_progress_version = "1.2.1"
@@ -39,7 +39,7 @@ ext {
             "dbflow-core"            : "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}",
             "dbflow"                 : "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}",
             "dbflow-sqlcipher"       : "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}",
-            "sqlcipher"              : "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar",
+            "sqlcipher"              : "net.zetetic:android-database-sqlcipher:${sqlcipher_version}",
             "dbflow-kotlin"          : "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}",
             "dbflow-rx"              : "com.github.Raizlabs.DBFlow:dbflow-rx2:${dbflow_version}",
             "dbflow-rx-kotlin"       : "com.github.Raizlabs.DBFlow:dbflow-rx2-kotlinextensions:${dbflow_version}",

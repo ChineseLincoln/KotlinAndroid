@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
-
 import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
 import com.tencent.mm.opensdk.modelbase.BaseResp
@@ -12,7 +11,6 @@ import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import org.unreal.pay.weixin.WeiXinConfig
-import org.unreal.pay.weixin.WeiXinPayImplement
 
 /**
  * **类名称：** WXPayEntryActivity <br></br>
@@ -28,7 +26,7 @@ class WXPayEntryActivity : Activity(), IWXAPIEventHandler {
 
     private var api: IWXAPI = WXAPIFactory.createWXAPI(this, null)
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         api.handleIntent(intent, this)
     }

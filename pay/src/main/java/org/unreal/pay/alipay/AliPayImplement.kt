@@ -2,7 +2,6 @@ package org.unreal.pay.alipay
 
 import android.content.Intent
 import com.alipay.sdk.app.PayTask
-import org.unreal.pay.Pay
 import org.unreal.pay.PayFunction
 
 
@@ -16,7 +15,7 @@ import org.unreal.pay.PayFunction
  *
  * @version 1.0.0 <br/>
  */
-internal class AliPayImplement(val payOrder: Pay.AliPay, val onSuccess: () -> Unit, val onError: (String) -> Unit) : PayFunction {
+internal class AliPayImplement(val payOrder: AliPay, val onSuccess: () -> Unit, val onError: (String) -> Unit) : PayFunction {
 
     override fun payment() {
         checkPluginState {
