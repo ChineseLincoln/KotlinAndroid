@@ -2,7 +2,6 @@ package org.unreal.pay.union
 
 import android.content.Intent
 import com.unionpay.UPPayAssistEx
-import org.unreal.pay.Pay
 import org.unreal.pay.PayFunction
 
 /**
@@ -15,7 +14,7 @@ import org.unreal.pay.PayFunction
  *
  * @version 1.0.0 <br/>
  */
-internal class UnionBankPayImplement(val payOrder: Pay.UnionBankPay, val onSuccess: () -> Unit, val onError: (String) -> Unit) : PayFunction {
+internal class UnionBankPayImplement(val payOrder: UnionBankPay, val onSuccess: () -> Unit, val onError: (String) -> Unit) : PayFunction {
 
     override fun filterResult(result: Intent?) {
         if (result == null) {

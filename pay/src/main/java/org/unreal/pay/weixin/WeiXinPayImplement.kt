@@ -7,9 +7,7 @@ import android.content.IntentFilter
 import android.support.v4.content.LocalBroadcastManager
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelpay.PayReq
-import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
-import org.unreal.pay.Pay
 import org.unreal.pay.PayFunction
 
 
@@ -23,7 +21,7 @@ import org.unreal.pay.PayFunction
  *
  * @version 1.0.0 <br/>
  */
-internal class WeiXinPayImplement(val payOrder: Pay.WeiXinPay,
+internal class WeiXinPayImplement(val payOrder: WeiXinPay,
                          val onSuccess: () -> Unit ,
                          val onError: (String) -> Unit)
     : PayFunction {
@@ -108,7 +106,7 @@ internal class WeiXinPayImplement(val payOrder: Pay.WeiXinPay,
 
 }
 
-object WeiXinConfig{
+internal object WeiXinConfig{
     const val LOCAL_BROAD_CAST_ACTION = "org.unreal.pay.weiXinPayResult"
     const val LOCAL_BROAD_EXTRA_CODE = "StateCode"
 }

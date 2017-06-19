@@ -23,7 +23,6 @@ android {
 }
 dependencies {
     implementation project(":widget")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/alipaySdk-20161222.jar')
     implementation files('libs/libammsdk.jar')
     implementation files('libs/UPPayAssistEx.jar')

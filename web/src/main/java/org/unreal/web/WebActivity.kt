@@ -1,7 +1,9 @@
 package org.unreal.web
 
+import android.annotation.TargetApi
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -111,6 +113,7 @@ class WebViewClientWrapper (val activity: WebActivity): WebViewClient() {
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
     }*/
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         return processUrl(request?.url.toString())
     }
