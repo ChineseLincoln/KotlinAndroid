@@ -2,9 +2,7 @@ package org.unreal.update.manger
 
 import android.Manifest
 import android.annotation.TargetApi
-import android.app.Activity
-import android.app.NotificationManager
-import android.app.ProgressDialog
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -16,6 +14,7 @@ import android.widget.Toast
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import me.jessyan.progressmanager.ProgressInfo
 import me.jessyan.progressmanager.ProgressManager
 import org.jetbrains.anko.notificationManager
 import org.jetbrains.anko.progressDialog
@@ -24,6 +23,9 @@ import org.unreal.update.converter.FileUtils
 import org.unreal.update.http.helper.RetrofitHelper
 import org.unreal.update.http.helper.service.DownloadService
 import java.io.File
+import android.widget.RemoteViews
+
+
 
 /**
  * 作者：zhangqiwen
@@ -31,14 +33,14 @@ import java.io.File
  * 名称：
  */
 object DownlaodManger{
-    lateinit var context : Context
+    lateinit var context : Activity
     const val AUTHORITY_UPDATE = "org.unreal.update"
     const val UPDATE_DIR = "/unreal/update/"
     lateinit var TYPE : DownLoadType
     lateinit var dialog : ProgressDialog
     lateinit var notificationManager : NotificationManager
-    lateinit var mNotifyBuilder : NotificationCompat.Builder
-
+    lateinit var notification : Notification
+    lateinit var  views: RemoteViews
     lateinit var downloadFileSavePath : String
 
     fun downloadApk(context: Activity, downloadUrl: String,
@@ -51,16 +53,22 @@ object DownlaodManger{
                             DownlaodManger.context = context
                             when(type){
                                 DownLoadType.Dialog ->{
-                                    DownlaodManger.dialog = context.progressDialog(message = "正在下载，请稍后...",
+                                    dialog = context.progressDialog(message = "正在下载，请稍后...",
                                             title = "${context.getString(org.unreal.core.R.string.app_name)}更新")
                                             .apply {
-                                                max = 100
                                                 setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
                                                 setCancelable(false)
                                             }
                                 }
                                 DownLoadType.Notification -> {
-                                    DownlaodManger.notificationManager = context.notificationManager
+                                    notificationManager = context.notificationManager
+                                    notification = Notification(R.mipmap.ic_launcher,
+                                            "${DownlaodManger.context.getString(org.unreal.core.R.string.app_name)}更新",
+                                            System.currentTimeMillis())
+                                            .apply {
+                                                contentView = RemoteViews(DownlaodManger.context.packageName,
+                                                        R.layout.notification_progress)
+                                            }
                                 }
                             }
 
@@ -87,44 +95,47 @@ object DownlaodManger{
         ProgressManager.getInstance().addResponseListener(downloadUrl) { info ->
             val percent = FileUtils.div((info.currentbytes.toDouble() / 1024), (info.contentLength.toDouble() / 1024), 2) * 100
             when (TYPE) {
-                DownLoadType.Dialog -> showDialog(percent.toInt())
-                DownLoadType.Notification -> showNotification(percent.toInt())
+                DownLoadType.Dialog -> showDialog(info)
+                DownLoadType.Notification -> showNotification(info,percent.toInt())
             }
         }
 
     }
 
-    private fun showDialog(progress: Int) {
-        dialog.progress = progress
+    private fun showDialog(info: ProgressInfo) {
+        dialog.progress = (info.currentbytes.toDouble()/1024).toInt()
+        dialog.max = (info.contentLength.toDouble()/1024).toInt()
+        dialog.setProgressNumberFormat("%1d KB/%2d KB")
         if(!dialog.isShowing) {
             dialog.show()
         }
         if(!dialog.isShowing) {
             dialog.show()
         }
-        if (100 == progress){
+        if (info.currentbytes == info.contentLength){
             dialog.dismiss()
         }
     }
+
+
     /**
      * 显示通知
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private fun showNotification(progress: Int) {
-        mNotifyBuilder = NotificationCompat.Builder(context)
-                .setTicker(context.getString(org.unreal.core.R.string.app_name) + "更新")
-                .setSmallIcon(R.mipmap.ic_launcher)  //系统状态栏显示的小图标
-                .setContentTitle("正在下载...")            //通知栏标题
-                .setAutoCancel(false)       //不可点击通知栏的删除按钮删除
-                .setWhen(System.currentTimeMillis()) as NotificationCompat.Builder //通知的时间
-        if (100 == progress) {
-            mNotifyBuilder.setContentTitle("等待安装...")
-            mNotifyBuilder.setProgress(100, progress, true)
-        } else {
-            mNotifyBuilder.setProgress(100, progress, false)
-        }
+    private fun showNotification(info: ProgressInfo,progress: Int) {
+        // 更新状态栏上的下载进度信息
+        notification.contentView.setTextViewText(R.id.num_progress, "已下载$progress%")
+        notification.contentView.setTextViewText(R.id.not_title,"正在下载...")
+        notification.contentView.setProgressBar(R.id.not_progress, 100,
+                progress, false)
+        notification.contentView.setTextViewText(R.id.format_progress, "${(info.currentbytes.toDouble()/1024).toInt()}KB/${(info.contentLength.toDouble()/1024).toInt()}KB")
         //显示通知
-        notificationManager.notify(0, mNotifyBuilder.build())
+        if (100 == progress){
+            notification.contentView.setProgressBar(R.id.not_progress, 100,
+                    progress, true)
+            notification.contentView.setTextViewText(R.id.not_title,"等待安装")
+        }
+        notificationManager.notify(0, notification)
     }
 
     private fun getDownloadFilePath(fileName: String): String {
