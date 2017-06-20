@@ -16,7 +16,6 @@ import org.unreal.databases.DatabaseApplication
 class KtApplication : DatabaseApplication() {
 
     override fun initApplication() {
-
     }
 
 }

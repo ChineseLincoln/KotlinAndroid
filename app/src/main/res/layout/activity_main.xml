@@ -41,4 +41,12 @@
         android:layout_alignRight="@+id/button1"
         android:layout_below="@+id/button1"
         android:text="支付宝" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:layout_below="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2" />
 </RelativeLayout>

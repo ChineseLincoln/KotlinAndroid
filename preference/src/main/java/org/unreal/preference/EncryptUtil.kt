@@ -43,14 +43,11 @@ class EncryptUtil private constructor(context: Context) {
      */
     @SuppressLint("HardwareIds")
     private fun getDeviceSerialNumber(context: Context): String {
-        // We're using the Reflection API because Build.SERIAL is only available
-        // since API Level 9 (Gingerbread, Android 2.3).
         try {
             val deviceSerial = Build::class.java.getField("SERIAL").get(null) as String
-            if (TextUtils.isEmpty(deviceSerial)) {
-                return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-            } else {
-                return deviceSerial
+            when{
+                TextUtils.isEmpty(deviceSerial) -> return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+                else -> return deviceSerial
             }
         } catch (ignored: Exception) {
             // Fall back  to Android_ID
@@ -66,11 +63,11 @@ class EncryptUtil private constructor(context: Context) {
      * *
      * @return
      */
-    private fun SHA(strText: String?): String {
+    private fun SHA(strText: String): String {
         // 返回值
-        var strResult: String? = null
+        var strResult: String = ""
         // 是否是有效字符串
-        if (strText != null && strText.length > 0) {
+        if (strText.isNotEmpty()) {
             try {
                 // SHA 加密开始
                 val messageDigest = MessageDigest.getInstance("SHA-256")
@@ -78,7 +75,7 @@ class EncryptUtil private constructor(context: Context) {
                 messageDigest.update(strText.toByteArray())
                 val byteBuffer = messageDigest.digest()
                 val strHexString = StringBuffer()
-                for (i in byteBuffer.indices) {
+                byteBuffer.indices.forEach { i ->
                     val hex = Integer.toHexString(0xff and byteBuffer[i].toInt())
                     if (hex.length == 1) {
                         strHexString.append('0')
@@ -92,7 +89,7 @@ class EncryptUtil private constructor(context: Context) {
 
         }
 
-        return strResult!!
+        return strResult
     }
 
 
@@ -128,9 +125,8 @@ class EncryptUtil private constructor(context: Context) {
             val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
             val keyspec = SecretKeySpec(key.toByteArray(), "AES")
             cipher.init(Cipher.DECRYPT_MODE, keyspec)
-            val original = cipher.doFinal(encrypted1)
-            val originalString = String(original)
-            return originalString
+
+            return String(cipher.doFinal(encrypted1))
         } catch (e: Exception) {
             e.printStackTrace()
             return null
@@ -139,7 +135,7 @@ class EncryptUtil private constructor(context: Context) {
     }
 
     companion object {
-        private var instance: EncryptUtil? = null
+        lateinit private var instance: EncryptUtil
         private val TAG = EncryptUtil::class.java.simpleName
 
         /**
@@ -149,15 +145,8 @@ class EncryptUtil private constructor(context: Context) {
          * @return
          */
         fun getInstance(context: Context): EncryptUtil {
-            if (instance == null) {
-                synchronized(EncryptUtil::class.java) {
-                    if (instance == null) {
-                        instance = EncryptUtil(context)
-                    }
-                }
-            }
-
-            return instance!!
+            synchronized(EncryptUtil::class.java) { instance = EncryptUtil(context) }
+            return instance
         }
     }
 }

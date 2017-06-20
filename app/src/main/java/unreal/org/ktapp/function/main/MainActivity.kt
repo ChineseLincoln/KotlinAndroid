@@ -10,10 +10,12 @@ import org.unreal.pay.alipay.AliPay
 import org.unreal.pay.payment
 import org.unreal.pay.union.UnionBankPay
 import org.unreal.pay.weixin.WeiXinPay
+import org.unreal.preference.PreferenceManger
 import unreal.org.ktapp.R
 import unreal.org.ktapp.function.main.component.DaggerMainComponent
 import unreal.org.ktapp.function.main.contract.MainContract
 import unreal.org.ktapp.function.main.module.MainModule
+import unreal.org.ktapp.function.main.sputils.UserSpUtils
 
 /**
  * <b>类名称：</b> MainActivity <br/>
@@ -30,6 +32,7 @@ class MainActivity : ToolBarActivity<MainContract.Presenter>(), MainContract.Vie
     override fun setTitle(): String = "首页"
 
     lateinit var payFunction: PayFunction
+    lateinit var userSP : UserSpUtils
 
     override fun injectDagger(coreComponent: CoreComponent) {
         DaggerMainComponent
@@ -73,6 +76,10 @@ class MainActivity : ToolBarActivity<MainContract.Presenter>(), MainContract.Vie
                 order { "" }
             },{ toast("支付成功")} ,{ toast(it) })
         }
+        button3.setOnClickListener {
+            presenter.loginLoad("15209687316","123454")
+
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -82,7 +89,7 @@ class MainActivity : ToolBarActivity<MainContract.Presenter>(), MainContract.Vie
     }
 
     override fun result() {
-        toast("hello world")
+        toast("登录成功${userSP.userName}")
     }
 
 
