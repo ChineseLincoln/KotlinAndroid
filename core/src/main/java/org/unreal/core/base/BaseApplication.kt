@@ -2,12 +2,13 @@ package org.unreal.core.base
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import org.jetbrains.anko.AnkoLogger
 import org.unreal.core.di.component.CoreComponent
 import org.unreal.core.di.component.DaggerCoreComponent
 import org.unreal.core.di.module.CoreModule
 
 
-abstract class BaseApplication : Application() {
+abstract class BaseApplication : Application() , AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()

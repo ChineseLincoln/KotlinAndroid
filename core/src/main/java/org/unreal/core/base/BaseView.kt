@@ -3,6 +3,7 @@ package org.unreal.core.base
 import android.app.Activity
 import android.content.Context
 import io.reactivex.*
+import org.jetbrains.anko.AnkoLogger
 
 
 /**
@@ -16,7 +17,7 @@ import io.reactivex.*
  * @version 1.0.0 <br/>
  */
 
-interface BaseView {
+interface BaseView : AnkoLogger {
 
     fun showWait()
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.disposables.CompositeDisposable
+import org.jetbrains.anko.AnkoLogger
 import org.unreal.core.di.component.CoreComponent
 import org.unreal.core.manager.ActivityTaskManager
 import org.unreal.widget.window.WaitScreen
@@ -26,7 +27,7 @@ import javax.inject.Inject
  *
  * @version 1.0.0 <br/>
  */
-abstract class BaseFragment<P : BasePresenter> : RxFragment(), BaseView {
+abstract class BaseFragment<P : BasePresenter> : RxFragment(), BaseView, AnkoLogger {
 
     @Inject
     lateinit var presenter: P

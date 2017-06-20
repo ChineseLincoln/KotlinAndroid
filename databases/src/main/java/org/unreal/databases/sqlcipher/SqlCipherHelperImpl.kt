@@ -16,8 +16,8 @@ import com.raizlabs.android.dbflow.structure.database.DatabaseHelperListener
  *
  * @version 1.0.0 <br/>
  */
-class SqlCipherHelperImpl(databaseDefinition: DatabaseDefinition, listener: DatabaseHelperListener)
-    : SQLCipherOpenHelper(databaseDefinition, listener) {
+class SQLCipherOpenHelperImpl(databaseDefinition: DatabaseDefinition, helperListener: DatabaseHelperListener?)
+    : SQLCipherOpenHelper(databaseDefinition, helperListener) {
 
-    override fun getCipherSecret(): String = "db@org.unreal#ByLincoln"
+    override fun getCipherSecret() = "dbflow-rules"
 }

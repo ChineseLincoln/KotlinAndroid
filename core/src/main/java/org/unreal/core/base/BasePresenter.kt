@@ -1,5 +1,7 @@
 package org.unreal.core.base
 
+import org.jetbrains.anko.AnkoLogger
+
 
 /**
  * <b>类名称：</b> BasePresenter <br/>
@@ -11,5 +13,5 @@ package org.unreal.core.base
  *
  * @version 1.0.0 <br/>
  */
-interface BasePresenter {
+interface BasePresenter : AnkoLogger {
 }

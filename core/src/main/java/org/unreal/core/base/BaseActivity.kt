@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
+import org.jetbrains.anko.AnkoLogger
 import org.unreal.core.base.BaseApplication.Companion.coreComponent
 import org.unreal.core.di.component.CoreComponent
 import org.unreal.core.manager.ActivityTaskManager
@@ -24,7 +25,7 @@ import javax.inject.Inject
  *
  * @version 1.0.0 <br/>
  */
-abstract class BaseActivity<P : BasePresenter> : RxAppCompatActivity(), BaseView {
+abstract class BaseActivity<P : BasePresenter> : RxAppCompatActivity(), BaseView , AnkoLogger {
 
     @Inject
     lateinit var presenter : P

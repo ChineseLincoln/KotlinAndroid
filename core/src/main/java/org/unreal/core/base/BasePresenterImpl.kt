@@ -13,7 +13,7 @@ import org.unreal.core.di.component.CoreComponent
  *
  * @version 1.0.0 <br/>
  */
-abstract class BasePresenterImpl<out V : BaseView>(val view: V) : BasePresenter {
+abstract class BasePresenterImpl<out V : BaseView>(val view: V) : BasePresenter  {
 
     init {
         injectComponent(BaseApplication.coreComponent)
