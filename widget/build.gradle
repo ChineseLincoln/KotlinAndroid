@@ -30,5 +30,4 @@ dependencies {
     api rootProject.ext.dependencies["support-design"]
     api rootProject.ext.dependencies["support-vector-drawable"]
     api "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}"
-
 }

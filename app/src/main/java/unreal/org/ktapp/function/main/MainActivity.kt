@@ -6,11 +6,16 @@ import org.jetbrains.anko.toast
 import org.unreal.core.base.ToolBarActivity
 import org.unreal.core.di.component.CoreComponent
 import org.unreal.pay.PayFunction
-import org.unreal.update.manger.DownLoadType
+import org.unreal.pay.alipay.AliPay
+import org.unreal.pay.payment
+import org.unreal.pay.union.UnionBankPay
+import org.unreal.pay.weixin.WeiXinPay
+import org.unreal.preference.PreferenceManger
 import unreal.org.ktapp.R
-import unreal.org.ktapp.function.main.component. DaggerMainComponent
+import unreal.org.ktapp.function.main.component.DaggerMainComponent
 import unreal.org.ktapp.function.main.contract.MainContract
 import unreal.org.ktapp.function.main.module.MainModule
+import unreal.org.ktapp.function.main.sputils.UserSpUtils
 
 /**
  * <b>类名称：</b> MainActivity <br/>
@@ -22,11 +27,12 @@ import unreal.org.ktapp.function.main.module.MainModule
  *
  * @version 1.0.0 <br/>
  */
-class MainActivity : ToolBarActivity<MainContract.Presenter>() , MainContract.View {
+class MainActivity : ToolBarActivity<MainContract.Presenter>(), MainContract.View {
 
     override fun setTitle(): String = "首页"
 
-    lateinit var payFunction : PayFunction
+    lateinit var payFunction: PayFunction
+    lateinit var userSP : UserSpUtils
 
     override fun injectDagger(coreComponent: CoreComponent) {
         DaggerMainComponent
@@ -41,33 +47,49 @@ class MainActivity : ToolBarActivity<MainContract.Presenter>() , MainContract.Vi
 
     override fun afterViews() {
         textView.text = "测试输出"
+        //银联支付
         button.setOnClickListener {
-            //use databases module
-//            UserModel(name = "xiaoli").insert {
-//                toast("user save into databases")
-//            }
-//
-//            payFunction = payment(Pay.UnionBankPay.build {
-//                activity = this@MainActivity
-//                tradeCode = "20170603"
-//                serverModel = "01"
-//            },{ toast("支付成功")} ,{ toast(it) })
+            payFunction = payment(UnionBankPay.build {
+                activity = this@MainActivity
+                tradeCode = "20170603"
+                serverModel = UnionBankPay.NORMAL
+            },{ toast("支付成功")} ,{ toast(it) })
         }
+        //微信支付
         button1.setOnClickListener {
-            org.unreal.update.manger.DownlaodManger.downloadApk(this,
-                    "http://183.56.150.169/imtt.dd.qq.com/16891/50172C52EBCCD8F9B0AD2B576DB7BA16.apk?mkey=58fedb8402e16784&f=9602&c=0&fsname=cn.flyexp_2.0.1_6.apk&csr=1bbd&p=.apk",
-                    "xiaohui.apk"
-                    ,DownLoadType.Notification)
+            payFunction = payment(WeiXinPay.build {
+                activity = this@MainActivity
+                appId = ""
+                partnerId = ""
+                prepayId = ""
+                packageValue = ""
+                nonceStr = ""
+                timeStamp = ""
+                sign = ""
+                signType = ""
+            },{ toast("支付成功")} ,{ toast(it) })
+        }
+        //支付宝支付
+        button2.setOnClickListener {
+            payFunction = payment( AliPay.build {
+                activity { this@MainActivity }
+                order { "" }
+            },{ toast("支付成功")} ,{ toast(it) })
+        }
+        button3.setOnClickListener {
+            presenter.loginLoad("15209687316","123454")
+
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //支付拦截onActivityResult以便获取支付结果
         payFunction.filterResult(data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun result() {
-        toast("hello world")
+        toast("登录成功${userSP.userName}")
     }
 
 

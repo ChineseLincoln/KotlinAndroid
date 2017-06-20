@@ -1,5 +1,6 @@
 package org.unreal.preference
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.SharedPreferences
@@ -21,24 +22,14 @@ import java.util.HashSet
 
  * @version 1.0.0 <br></br>
  */
-class SecuritySharedPreference
-/**
- * constructor
- * @param context should be ApplicationContext not activity
- * *
- * @param name file name
- * *
- * @param mode context mode
- */
-(private val mContext: Context, name: String, mode: Int) : SharedPreferences {
+class SecuritySharedPreference( val mContext: Context, name: String, mode: Int) : SharedPreferences {
 
     private var mSharedPreferences: SharedPreferences
 
     init {
-        if (TextUtils.isEmpty(name)) {
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
-        } else {
-            mSharedPreferences = mContext.getSharedPreferences(name, mode)
+        when {
+            TextUtils.isEmpty(name) -> mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+            else -> mSharedPreferences = mContext.getSharedPreferences(name, mode)
         }
 
     }
@@ -77,10 +68,7 @@ class SecuritySharedPreference
 
     override fun getStringSet(key: String, defValues: Set<String>): Set<String> {
         val encryptSet = mSharedPreferences.getStringSet(encryptPreference(key), null) ?: return defValues
-        val decryptSet = HashSet<String>()
-        for (encryptValue in encryptSet) {
-            decryptSet.add(decryptPreference(encryptValue))
-        }
+        val decryptSet = encryptSet.mapTo(HashSet<String>()) { decryptPreference(it) }
         return decryptSet
     }
 
@@ -210,6 +198,7 @@ class SecuritySharedPreference
          * apply() commits its changes to the in-memory SharedPreferences immediately but starts
          * an asynchronous commit to disk and you won't be notified of any failures.
          */
+        @SuppressLint("ObsoleteSdkInt")
         @TargetApi(Build.VERSION_CODES.GINGERBREAD)
         override fun apply() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {

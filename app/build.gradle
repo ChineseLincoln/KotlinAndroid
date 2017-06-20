@@ -134,6 +134,7 @@ dependencies {
     implementation project(':pay')
     implementation project(':web')
     implementation project(':update')
+    implementation project(':preference')
 
     kapt rootProject.ext.apt["dagger-compiler"]
 }

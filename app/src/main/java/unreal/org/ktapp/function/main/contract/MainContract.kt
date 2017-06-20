@@ -19,6 +19,7 @@ class MainContract{
     }
 
     interface Presenter : BasePresenter{
+        fun loginLoad(userName: String, passWord: String)
 
     }
 }
