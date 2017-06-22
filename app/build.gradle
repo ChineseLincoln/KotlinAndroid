@@ -45,6 +45,8 @@ android {
         debug {
             signingConfig signingConfigs.config
             applicationIdSuffix ".debug"
+            shrinkResources false
+
         }
 
         release {
@@ -81,12 +83,12 @@ android {
         }
 
         applicationVariants.all { variant ->
-            if (variant.buildType.name == 'release') {
-                variant.mergedFlavor.versionCode = getVersionCode(true)
-                variant.mergedFlavor.versionName = getVersionName(true)
-            } else if (variant.buildType.name == 'debug') {
+            if (project.hasProperty('devBuild')) {
                 variant.mergedFlavor.versionCode = getVersionCode(false)
                 variant.mergedFlavor.versionName = getVersionName(false)
+            } else {
+                variant.mergedFlavor.versionCode = getVersionCode(true)
+                variant.mergedFlavor.versionName = getVersionName(true)
             }
             println(variant.buildType.name + "version code is --->" + variant.mergedFlavor.versionCode)
             println(variant.buildType.name + "version name is --->" + variant.mergedFlavor.versionName)
