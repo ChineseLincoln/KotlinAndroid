@@ -1,6 +1,7 @@
 ## progressDialog更新
 
-##DownLoadType(Dialog,Notification)
+## Enum DownLoadType(Dialog,Notification)
+
 ```kotlin
 downloadApk(context: Activity, downloadUrl: String,
                     fileName: String, type : DownLoadType)
