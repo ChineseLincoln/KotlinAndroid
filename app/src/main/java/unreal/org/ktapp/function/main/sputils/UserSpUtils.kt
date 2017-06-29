@@ -8,7 +8,7 @@ import unreal.org.ktapp.function.main.data.UserBean
  * 2017/6/20 0020 11:02
  * 名称：
  */
-class UserSpUtils() {
+class UserSpUtils {
 
     companion object {
 
