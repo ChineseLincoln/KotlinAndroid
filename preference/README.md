@@ -1,13 +1,12 @@
-package unreal.org.ktapp.function.main.sputils
+## 单值操作
 
-import org.unreal.preference.PreferenceManger
-import unreal.org.ktapp.function.main.data.UserBean
+```kotlin
+var userId: String by  PreferenceManger(USER_ID,"")
+```
+## 批量信息操作
 
-/**
- * 作者：zhangqiwen
- * 2017/6/20 0020 11:02
- * 名称：
- */
+```kotlin
+//存储app用户信息类
 class UserSpUtils {
 
     companion object {
@@ -35,14 +34,33 @@ class UserSpUtils {
         userName = user.userName
         userPass = user.userPassWord
     }
+    }
+```
+然后再在存储的地方调用即可
+```kotlin
+lateinit var userSP : UserSpUtils
 
-    fun remove (key : String){
+
+val userBean = UserBean(userName, passWord, "1", "110")
+userSP.saveUser(userBean)
+```
+
+## kotlin信息删除需要注意
+
+```kotlin
+//单值删除
+fun remove (key : String){
         val manger = PreferenceManger<Any>()
         manger.delete(key)
     }
-    fun clear() {
+    
+```
+
+```kotlin
+//全部删除
+fun clear() {
         val manger = PreferenceManger<Any>()
         manger.delete()
     }
+```
 
-}
